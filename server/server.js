@@ -7,6 +7,7 @@ const authRoutes = require("./src/routes/authRoutes");
 const productRoutes = require("./src/routes/productRoutes");
 const categoryRoutes = require("./src/routes/categoryRoutes");
 const cartRoutes = require("./src/routes/cartRoutes");
+const addressRoutes = require("./src/routes/addressRoutes");
 
 const app = express();
 
@@ -19,7 +20,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/cart", cartRoutes);
-
+app.use("/api/addresses", addressRoutes);
 
 // app.use((req, res, next) => {
 
