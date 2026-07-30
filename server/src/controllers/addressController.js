@@ -294,34 +294,35 @@ const deleteAddress = async (req, res) => {
         if (!deletedAddress) {
 
             return res.status(404).json({
-
                 success: false,
-
                 message: "Address not found"
-
             });
 
         }
 
+        // If deleted address was default
+if (deletedAddress.isDefault) {
+
+    const anotherAddress = await Address.findOne({
+        user: req.user.id
+    });
+
+        if (anotherAddress) {
+            anotherAddress.isDefault = true;
+            await anotherAddress.save();
+        }
+        }
+
         return res.status(200).json({
-
             success: true,
-
-            message: "Address deleted"
-
+            message: "Address deleted successfully"
         });
-
-    } catch (error) {
-
-        return res.status(500).json({
-
-            success: false,
-
-            message: error.message
-
-        });
-
-    }
+        } catch (error) {
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
 
 };
 
@@ -333,7 +334,6 @@ const setDefaultAddress = async (req, res) => {
         const { id } = req.params;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-
             return res.status(400).json({
                 success: false,
                 message: "Invalid Address ID"
@@ -352,11 +352,9 @@ const setDefaultAddress = async (req, res) => {
                 _id: id,
                 user: req.user.id
             },
-
             {
                 isDefault: true
             },
-
             {
                 new: true
             }
@@ -366,35 +364,23 @@ const setDefaultAddress = async (req, res) => {
         if (!address) {
 
             return res.status(404).json({
-
                 success: false,
-
                 message: "Address not found"
-
             });
 
         }
 
         return res.status(200).json({
-
             success: true,
-
             message: "Default address updated",
-
             address
-
         });
 
     } catch (error) {
-
         return res.status(500).json({
-
             success: false,
-
             message: error.message
-
         });
-
     }
 
 };

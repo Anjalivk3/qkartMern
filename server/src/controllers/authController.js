@@ -80,9 +80,10 @@ const loginUser = async (req,res) =>{
      
     // email and password is valid so return a token
     // use jwt
-    const token = jwt.sign({id: existingUser._id, role: existingUser.role }, 
+    const token = jwt.sign(
+      {id: existingUser._id, role: existingUser.role }, 
       process.env.JWT_SECRET,{
-        expiresIn: "6hr"
+        expiresIn: "7d"
       });
 
     
