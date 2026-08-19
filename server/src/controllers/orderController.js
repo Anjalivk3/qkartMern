@@ -1,6 +1,7 @@
 const Cart = require("../models/Cart");
 const Order = require("../models/Order");
 const Address = require("../models/Address");
+const Product = require("../models/Product");
 
 const placeOrder = async (req, res) => {
 
@@ -33,25 +34,36 @@ const placeOrder = async (req, res) => {
 
         let totalAmount = 0;
 
-        for (const item of cart.items) {
+      // STEP 1: Check stock for ALL products first
 
-            orderItems.push({
+for (const item of cart.items) {
 
-                product: item.product._id,
+    if (item.product.stock < item.quantity) {
 
-                name: item.product.name,
+        return res.status(400).json({
+            success: false,
+            message: `${item.product.name} does not have enough stock`
+        });
 
-                image: item.product.image,
+    }
+}
 
-                price: item.product.price,
 
-                quantity: item.quantity
+// STEP 2: Prepare order items and calculate total
 
-            });
+for (const item of cart.items) {
 
-            totalAmount += item.product.price * item.quantity;
-        }
+    orderItems.push({
+        product: item.product._id,
+        name: item.product.name,
+        image: item.product.images?.[0]?.url,
+        price: item.product.price,
+        quantity: item.quantity
+    });
 
+    totalAmount +=
+        item.product.price * item.quantity;
+    }
         const shippingAddress = {
             fullName: address.fullName,
             mobileNumber: address.mobileNumber,
@@ -69,6 +81,15 @@ const placeOrder = async (req, res) => {
             shippingAddress,
             totalAmount
         });
+
+        // STEP 3: Decrease stock after order is created
+
+        for (const item of cart.items) {
+
+            item.product.stock -= item.quantity;
+
+            await item.product.save();
+        }
 
         cart.items = [];
         await cart.save();

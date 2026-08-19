@@ -97,7 +97,7 @@ function Checkout() {
 
             <h1>Checkout</h1>
 
-
+        <div className="checkout-card">
             <h2>Shipping Address</h2>
 
 
@@ -109,7 +109,7 @@ function Checkout() {
                         You don't have a default address.
                     </p>
 
-                    <button
+                    <button className="checkout-button"
                         onClick={() =>
                             navigate("/addresses")
                         }
@@ -158,7 +158,7 @@ function Checkout() {
                     <br />
                     <br />
 
-                    <button
+                    <button className="checkout-button"
                         onClick={() =>
                             navigate("/addresses")
                         }
@@ -176,6 +176,7 @@ function Checkout() {
             {defaultAddress && (
 
                 <button
+                    className="checkout-button"
                     onClick={handlePlaceOrder}
                     disabled={placingOrder}
                 >
@@ -186,6 +187,8 @@ function Checkout() {
                 </button>
 
             )}
+
+            </div>
 
         </div>
     );
