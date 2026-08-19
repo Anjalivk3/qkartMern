@@ -1,0 +1,57 @@
+.checkout-page {
+    max-width: 1000px;
+
+    margin: auto;
+
+    padding: 35px 20px;
+}
+
+.checkout-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+
+    margin-bottom: 20px;
+}
+
+.checkout-card h2 {
+    margin-bottom: 15px;
+}
+
+.checkout-address {
+    border: 2px solid #2563eb;
+
+    padding: 18px;
+
+    border-radius: 10px;
+
+    background: #eff6ff;
+}
+
+.checkout-button {
+    width: 100%;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    margin-top: 20px;
+}
+
+.checkout-button:hover {
+    background: #1d4ed8;
+}
