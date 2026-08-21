@@ -42,12 +42,26 @@ function ProductCard({ product }) {
 
     return (
         <div className="product-card">
+            <div className="product-image-container">
+            {product.images?.[0]?.url ? (
 
-            <img
-                src={product.images?.[0]?.url}
-                alt={product.name}
-                className="product-image"
-            />
+    <img
+        src={product.images[0].url}
+        alt={product.name}
+        className="product-image"
+        onError={(e) => {
+            e.currentTarget.style.display = "none";
+        }}
+    />
+
+) : (
+
+    <div className="no-image">
+        No Image
+    </div>
+
+)}
+            </div>
 
             <div className="product-content">
 

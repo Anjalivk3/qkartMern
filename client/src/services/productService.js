@@ -1,6 +1,12 @@
 import axiosInstance from "./axios";
 
+
+// =========================
+// GET ALL PRODUCTS
+// =========================
+
 export const getProducts = async (params = {}) => {
+
     const response = await axiosInstance.get(
         "/products",
         {
@@ -12,6 +18,10 @@ export const getProducts = async (params = {}) => {
 };
 
 
+// =========================
+// GET PRODUCT BY ID
+// =========================
+
 export const getProductById = async (id) => {
 
     const response = await axiosInstance.get(
@@ -22,28 +32,52 @@ export const getProductById = async (id) => {
 };
 
 
+// =========================
+// CREATE PRODUCT
+// =========================
 
-export const createProduct = async (productData) => {
+export const createProduct = async (formData) => {
 
     const response = await axiosInstance.post(
         "/products",
-        productData
+        formData,
+        {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }
     );
 
     return response.data;
 };
 
 
-export const updateProduct = async (id, productData) => {
+// =========================
+// UPDATE PRODUCT
+// =========================
+
+export const updateProduct = async (
+    id,
+    formData
+) => {
 
     const response = await axiosInstance.put(
         `/products/${id}`,
-        productData
+        formData,
+        {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }
     );
 
     return response.data;
 };
 
+
+// =========================
+// DELETE PRODUCT
+// =========================
 
 export const deleteProduct = async (id) => {
 
@@ -52,4 +86,4 @@ export const deleteProduct = async (id) => {
     );
 
     return response.data;
-}
+};
