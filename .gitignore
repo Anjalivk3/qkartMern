@@ -2,4 +2,10 @@ node_modules/
 .env
 .env.local
 dist/
-build
+build/
+
+*.log
+
+.DS_Store
+server/.env
+client/.env
