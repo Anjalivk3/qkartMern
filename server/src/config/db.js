@@ -4,7 +4,8 @@ const mongoose = require("mongoose");
         try {
 
                 const conn = await mongoose.connect(process.env.MONGODB_URI);
-                console.log("MongoDB Connected", conn);
+                
+                console.log("MongoDB Connected", conn.connection.host);
                 } 
 
         catch (error) {
